@@ -28,40 +28,6 @@ variables:
   RUSTFLAGS: '-C debug-assertions'
 
 jobs:
-- job: linux
-  pool:
-    vmImage: ubuntu-16.04
-  strategy:
-    matrix:
-      config/libwallet/api:
-        CI_JOB: test
-        CI_JOB_ARGS: config libwallet api
-      impls:
-        CI_JOB: test
-        CI_JOB_ARGS: impls
-      controller/all:
-        CI_JOB: test
-        CI_JOB_ARGS: controller .
-      release:
-        CI_JOB: release
-        PLATFORM: linux-amd64
-  steps:
-    - template: '.ci/test.yml'
-    - template: '.ci/release.yml'
-- job: macos
-  pool:
-    vmImage: macos-10.14
-  strategy:
-    matrix:
-      test:
-        CI_JOB: test-all
-      release:
-        CI_JOB: release
-        PLATFORM: macos
-  steps:
-    - template: '.ci/install.yml'
-    - template: '.ci/test.yml'
-    - template: '.ci/release.yml'
 - job: windows
   pool:
     vmImage: windows-2019
